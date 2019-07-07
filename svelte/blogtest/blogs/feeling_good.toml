@@ -1,0 +1,30 @@
+[config]
+author = "Kristof"
+email = "optional@info.com"
+time_epoch = 1562489563
+tags = "travel ibiza"
+likes = 5
+
+[[comments]]
+id = 1
+time_epoch = 1562489563
+author = "someone"
+email = "optional@info.com"
+description = "something"
+parent = 0
+
+[[comments]]
+id = 2
+time_epoch = 1562489563
+author = "someoneelse"
+email = "optional@info.com"
+description = "something"
+parent = 1
+
+[[comments]]
+id = 3
+time_epoch = 1562489563
+author = "sss"
+email = "optional@info.com"
+description = "sss"
+parent = 0
