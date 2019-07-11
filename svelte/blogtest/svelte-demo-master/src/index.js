@@ -5,4 +5,4 @@ const app = new App({
 	target: document.body
 });
 
-window.gun = Gun("ws://192.168.0.176:8000/gun")
+window.gun = Gun("ws://localhost:8000/gun")

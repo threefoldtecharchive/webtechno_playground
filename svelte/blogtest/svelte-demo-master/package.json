@@ -6,7 +6,7 @@
     "autobuild": "rollup -c -w",
     "dev": "run-p start:dev autobuild",
     "start": "sirv public --single",
-    "start:dev": "sirv public -H 0.0.0.0 --dev --single"
+    "start:dev": "sirv public --dev --single"
   },
   "dependencies": {
     "gun": "^0.2019.627",

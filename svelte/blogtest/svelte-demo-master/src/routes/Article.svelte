@@ -12,19 +12,33 @@
   export let params = {};
   let post = {title:"", body:""};
   // return fetch(`https://sapper-template.now.sh/blog/${title}.json`).then(r => r.json());
-  window.gun
-    .get("posts")
-    .map()
-    .once(p => {
-      if (params.title == p.id) {
-        console.log("found!");
-        post = p;
-      }
-    });
+
+	window.gun
+        .get("posts")
+        .map()
+        .on(p => {
+		if (p != null && params.title == p.id) {
+            post.gunId = p._["#"];
+            post.title = p.title;
+			post.body = p.body;
+          }
+        });
   // Initial value (preload)
 
   // Reactively update `post` value
   // $: if (params.title) load(params.title).then(obj => { post = obj });
+
+  function deletePost() {
+      // console.log("deleting", this.$route.params.uid)
+      window.gun
+        .get("posts")
+        .get(post.gunId)
+        .put(null);
+      // this.$router.push({path: 'blog-home'})
+      window.location = "/blog";
+      // window.location =
+    }
+
 </script>
 
 <style>
@@ -68,3 +82,5 @@
 <div class="content">
   {post.body}
 </div>
+
+<button on:click="{deletePost}">Delete</button>

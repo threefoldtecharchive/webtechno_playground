@@ -1,33 +1,49 @@
-<script context="module">
+<script>
   let posts = [];
   let blogInfo = {};
-  let title;
-  let description;
+  let newPost = {
+	  title: "",
+	  body: ""
+  };
   function editBlog(e) {
     if (e.key === "Enter") {
-	  console.log(blogInfo);
-	  window.gun.get("headline").put({title:title, description:description})
+      window.gun
+        .get("headline")
+        .put({ title: blogInfo.title, description: blogInfo.description });
     }
   }
-  export function preload() {
-    // return fetch('https://sapper-template.now.sh/blog.json')
-    // return fetch('http://localhost:5000/blog.json')
-    // 	.then(r => r.json())
-    // 	.then(arr => {
-    // 		posts = arr;
-    // 	});
-    window.gun.get("headline").on(headLine => {
-	  title = headLine.title;
-	  description = headLine.description;
-    });
-    posts = [];
-    window.gun
-      .get("posts")
-      .map()
-      .on(post => {
-        posts.push(post);
-      });
+  function handleSubmit(e){
+      if (posts[posts.length - 1] != null) {
+        newPost.id = posts[posts.length - 1].id + 1;
+      } else {
+        newPost.id = 0;
+	  }
+      window.gun.get("posts").set(newPost);
   }
+  window.gun.get("headline").on(headLine => {
+    blogInfo.title = headLine.title;
+    blogInfo.description = headLine.description;
+  });
+  
+  var sveltedoesntworkverywell = [];
+  window.gun
+    .get("posts")
+    .map()
+    .on((post, id) => {
+		console.log(post, id)
+		if (post != null) {
+			// posts.push(post); if only this worked in svelte
+			post.ref = id
+			sveltedoesntworkverywell.push(post);
+		} else {
+			var index = posts.findIndex(p => {
+				return p.ref == id;
+			});
+
+			if(index != -1) sveltedoesntworkverywell.splice(index, 1);
+		}
+		posts = sveltedoesntworkverywell;
+    });
 </script>
 
 <style>
@@ -48,10 +64,9 @@
   <title>Blog</title>
 </svelte:head>
 
-<input on:keyup={editBlog} class="blog-title" bind:value={title} />
-<p>Debug: {title}</p>
+<input on:keyup={editBlog} class="blog-title" bind:value={blogInfo.title} />
 <br />
-<input class="blog-description" bind:value={description} />
+<input on:keyup={editBlog} class="blog-description" bind:value={blogInfo.description} />
 <br />
 <br />
 <br />
@@ -65,3 +80,10 @@
     <br />
   {/each}
 </div>
+
+<form id="newPost" on:submit|preventDefault={handleSubmit}>
+<input class="new-post-title" bind:value={newPost.title} placeholder="Title"/>
+<br />
+<input class="new-post-body" bind:value={newPost.body} placeholder="Body" />
+<button>Save post</button>
+</form>
