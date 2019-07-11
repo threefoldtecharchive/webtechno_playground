@@ -34,9 +34,7 @@
         .get("posts")
         .get(post.gunId)
         .put(null);
-      // this.$router.push({path: 'blog-home'})
-      window.location = "/blog";
-      // window.location =
+      window.location = "/";
     }
 
 </script>

@@ -7,6 +7,7 @@
   };
   function editBlog(e) {
     if (e.key === "Enter") {
+      e.target.blur()
       window.gun
         .get("headline")
         .put({ title: blogInfo.title, description: blogInfo.description });
