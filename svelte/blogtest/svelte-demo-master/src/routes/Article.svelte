@@ -14,7 +14,8 @@
   // return fetch(`https://sapper-template.now.sh/blog/${title}.json`).then(r => r.json());
 
 	window.gun
-        .get("posts")
+        .get("blog://1")
+        .get("list_posts")
         .map()
         .on(p => {
 		if (p != null && params.title == p.id) {
@@ -31,7 +32,8 @@
   function deletePost() {
       // console.log("deleting", this.$route.params.uid)
       window.gun
-        .get("posts")
+        .get("blog://1")
+        .get("list_posts")
         .get(post.gunId)
         .put(null);
       window.location = "/";

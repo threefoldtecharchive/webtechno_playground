@@ -8,7 +8,7 @@
   function editBlog(e) {
     if (e.key === "Enter") {
       e.target.blur()
-      window.gun
+      window.gun.get("blog://1")
         .get("headline")
         .put({ title: blogInfo.title, description: blogInfo.description });
     }
@@ -19,16 +19,17 @@
       } else {
         newPost.id = 0;
 	  }
-      window.gun.get("posts").set(newPost);
+      window.gun.get("blog://1").get("list_posts").set(newPost);
   }
-  window.gun.get("headline").on(headLine => {
+  window.gun.get("blog://1").get("headline").on(headLine => {
     blogInfo.title = headLine.title;
     blogInfo.description = headLine.description;
   });
   
   var sveltedoesntworkverywell = [];
   window.gun
-    .get("posts")
+    .get("blog://1")
+    .get("list_posts")
     .map()
     .on((post, id) => {
 		console.log(post, id)

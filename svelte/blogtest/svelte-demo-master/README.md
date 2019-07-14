@@ -25,7 +25,7 @@ var post2 = {
 	body: "My duck is the best duck. You have never seen such a good duck. A big yellow duck",
 	image: "duck01.jpg"
 }
-var posts = gun.get('posts')
+var posts = gun.get('list_posts')
 posts.set(post1)
 posts.set(post2)
 

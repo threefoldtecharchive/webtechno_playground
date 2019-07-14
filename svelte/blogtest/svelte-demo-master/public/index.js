@@ -386,10 +386,10 @@ function instance$1($$self, $$props, $$invalidate) {
 
 	const router = Navaid('/')
 		// .on('/', () => import('../routes/Home.svelte').then(draw))
-		.on('/', () => import('./Blog-148aa313.js').then(draw))
+		.on('/', () => import('./Blog-d5b6571e.js').then(draw))
 		.on('/about', () => import('./About-fec7ec07.js').then(draw))
-		.on('/blog', () => import('./Blog-148aa313.js').then(draw))
-		.on('/blog/:title', obj => import('./Article-d75033b6.js').then(m => draw(m, obj)))
+		.on('/blog', () => import('./Blog-d5b6571e.js').then(draw))
+		.on('/blog/:title', obj => import('./Article-bf917f0c.js').then(m => draw(m, obj)))
 		.listen();
 
 	onDestroy(router.unlisten);
